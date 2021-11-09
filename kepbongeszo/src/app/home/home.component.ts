@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { AppService } from '../app.service';
 
 interface IGreeting {
@@ -18,7 +19,7 @@ export class HomeComponent {
   greeting : any
 
   constructor(private app: AppService, private http: HttpClient) {
-    http.get<any>('/api/resource').subscribe(data => {
+    http.get<any>(environment.API_PATH+"resource").subscribe(data => {
       console.log(data);
       this.greeting = data['text']
     });

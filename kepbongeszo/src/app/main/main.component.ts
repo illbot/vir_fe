@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from './app.service';
-import { finalize } from "rxjs/operators";
+import { finalize } from 'rxjs/operators';
+import { AppService } from '../app.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class AppComponent {
-  title = 'kepbongeszo';
+export class MainComponent {
 
   constructor(private app: AppService, private http: HttpClient, private router: Router){
-    this.app.login(undefined)
+    
   }
+
 
   logout(){
     this.http.post('logout', {}).pipe(
@@ -23,4 +23,5 @@ export class AppComponent {
       this.router.navigateByUrl('/login')
     })).subscribe();
   }
+
 }

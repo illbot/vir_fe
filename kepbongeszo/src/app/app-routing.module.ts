@@ -6,11 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule} from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppService } from './app.service';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'home', component: HomeComponent},
-  { path: 'login', component: LoginComponent}
+  {path: '', pathMatch: 'full', redirectTo: 'app/home'},
+  { path: 'app', component: MainComponent, children:[
+    { path: 'home', component: HomeComponent},
+  ]},
+  { path: 'login', component: LoginComponent},
+  {path: '**', redirectTo: 'app/home'}
 ];
 
 @NgModule({

@@ -1,31 +1,31 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
 
-  authenticated = false;
+  authenticated:boolean = false;
 
   constructor(private http: HttpClient) { }
 
-  authenticate(credentials: { username: any; password: any; } | undefined, callback: { (): void; (): any; } | undefined) {
+  login(credentials:any):Observable<any> {
+    return this.http.post(environment.AUTH_SIGNIN, credentials, httpOptions);
+  }
 
-    const headers = new HttpHeaders(credentials ? {
-        authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-    } : {});
-
-    this.http.get<any>(environment.API_PATH+environment.USER, {headers: headers}).subscribe(response => {
-        if (response['name']) {
-            this.authenticated = true;
-        } else {
-            this.authenticated = false;
-        }
-        return callback && callback();
-    });
-
-}
+  register(username: string, email: string, password: string): Observable<any> {
+    return this.http.post(environment.AUTH_SIGNUP, {
+      username,
+      email,
+      password
+    }, httpOptions);
+  }
 
 }

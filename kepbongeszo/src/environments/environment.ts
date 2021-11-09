@@ -7,7 +7,10 @@ export const environment = {
 
   API_PATH: "/api/",
 
-  USER: "user",
+  USER: "/api/user",
+  AUTH_SIGNIN: "/api/auth/signin",
+  AUTH_SIGNUP: "/api/auth/signup"
+
 };
 
 /*
