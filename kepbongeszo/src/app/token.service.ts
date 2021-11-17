@@ -14,6 +14,10 @@ export class TokenService {
     window.localStorage.clear();
   }
 
+  public isLoggedIn(){
+    return window.localStorage.getItem(TOKEN_KEY) ? true : false;
+  }
+
   public saveToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);

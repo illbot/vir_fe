@@ -11,6 +11,7 @@ import { MainComponent } from './main/main.component';
 import { authInterceptorProviders } from './_helpers/interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon'
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {MatIconModule} from '@angular/material/icon'
     FormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

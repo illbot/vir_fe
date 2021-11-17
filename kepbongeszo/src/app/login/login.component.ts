@@ -26,6 +26,7 @@ export class LoginComponent {
     this.app.login(this.credentials).subscribe(data => {
       console.log(data);
       this.token.saveToken(data.accessToken);
+      this.token.saveUser(data);
       console.log(this.token.getToken());
       this.router.navigateByUrl('/app/home')
       return false;
