@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { TokenService } from '../token.service';
+import { MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { TokenService } from '../token.service';
 export class LoginComponent {
   error = false;
   credentials = {username: '', password: ''};
+  seePassword = false;
 
   constructor(
     private app: AppService,
@@ -24,12 +26,16 @@ export class LoginComponent {
 
   login() {
     this.app.login(this.credentials).subscribe(data => {
-      console.log(data);
       this.token.saveToken(data.accessToken);
       this.token.saveUser(data);
-      console.log(this.token.getToken());
       this.router.navigateByUrl('/app/home')
-      return false;
+    },
+    err =>{
+      this.error = true;
     })
+  }
+
+  toggleSeePw(){
+    this.seePassword = !this.seePassword;
   }
 }

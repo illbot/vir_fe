@@ -11,12 +11,20 @@
       home
     </mat-icon>
   </button>
-  <button *ngIf="!isLoggedIn()" mat-icon-button class="example-icon" routerLinkActive="active" routerLink="/login">
+  <button *ngIf="!isLoggedIn()" 
+      mat-icon-button class="example-icon" 
+      routerLinkActive="active"
+      matTooltip="Login" 
+      routerLink="/login">
     <mat-icon>
       login
     </mat-icon>
   </button>
-  <button *ngIf="isLoggedIn()" mat-icon-button class="example-icon" (click)="logout()">
+  <button *ngIf="isLoggedIn()" 
+      mat-icon-button 
+      matTooltip="Logout" 
+      class="example-icon" 
+      (click)="logout()">
     <mat-icon>
       logout
     </mat-icon>

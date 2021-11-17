@@ -27,7 +27,6 @@ export class MainComponent {
   }
 
   logout(){
-    console.log("logout")
     this.tokenService.signOut();
     this.router.navigateByUrl('/login');
   }
