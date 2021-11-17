@@ -1,10 +1,22 @@
-<div class="contianer">
-    <ul class="nav nav-pills">
-      <li><a routerLinkActive="active" routerLink="/app/home">Home</a></li>
-      <li><a routerLinkActive="active" routerLink="/login">Login</a></li>
-      <li><a (click)="logout()">Logout</a></li>
-    </ul>
-</div>
+<mat-toolbar color="primary">
+  <span>Képböngésző</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon" routerLinkActive="active" routerLink="/app/home">
+    <mat-icon>
+      home
+    </mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" routerLinkActive="active" routerLink="/login">
+    <mat-icon>
+      login
+    </mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" (click)="logout()">
+    <mat-icon>
+      logout
+    </mat-icon>
+  </button>
+</mat-toolbar>
 <div class="container">
     <router-outlet></router-outlet>
 </div>
