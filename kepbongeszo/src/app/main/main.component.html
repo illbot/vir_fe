@@ -7,9 +7,9 @@
   <span>Képböngésző</span>
   <span class="example-spacer"></span>
   <button *ngIf="isLoggedIn()" mat-button>
-    <span> 
+    
       {{user.username.charAt(0).toUpperCase() + user.username.slice(1)}}
-    </span>
+    
   </button>
   <button mat-icon-button class="example-icon" routerLinkActive="active" routerLink="/app/home">
     <mat-icon>
