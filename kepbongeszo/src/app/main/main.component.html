@@ -1,4 +1,9 @@
 <mat-toolbar color="primary">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>
+      menu
+    </mat-icon>
+  </button>
   <span>Képböngésző</span>
   <span class="example-spacer"></span>
   <button *ngIf="isLoggedIn()" mat-button>
@@ -30,6 +35,32 @@
     </mat-icon>
   </button>
 </mat-toolbar>
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
+<mat-drawer-container class="sidebar">
+  <mat-drawer #drawer style="background-color: #3f51b5;" mode="side" opened>
+    <mat-nav-list>
+      <mat-list-item>  
+         <mat-icon>
+           article
+        </mat-icon>
+        Item 1
+      </mat-list-item>
+      <mat-list-item>
+         <mat-icon>
+           article
+         </mat-icon>
+        Item 2
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon>
+          article
+        </mat-icon>
+        Item 3
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content> 
+</mat-drawer-container>

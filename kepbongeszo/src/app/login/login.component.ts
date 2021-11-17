@@ -38,4 +38,10 @@ export class LoginComponent {
   toggleSeePw(){
     this.seePassword = !this.seePassword;
   }
+
+  keyDownFunction(event:any){
+    if(event.keyCode === 13){
+      this.login();
+    }
+  }
 }

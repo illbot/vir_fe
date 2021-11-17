@@ -1,3 +1,13 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+.sidebar{
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0; 
+}
+
+mat-nav-list{color: white;}
