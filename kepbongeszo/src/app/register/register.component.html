@@ -1,0 +1,94 @@
+<mat-card class="register-card">
+	<form role="form" (submit)="register()" [formGroup]="form">
+		<mat-card-title>Register</mat-card-title>
+		<mat-card-content>
+			<mat-form-field appearance="fill" style="width: 100%;">
+				<mat-label>Username</mat-label>
+				<input matInput
+				type="text"
+				class="form-control" 
+				id="username" 
+				name="username" 
+				formControlName="username"/>
+				<mat-icon matSuffix>
+					person
+				</mat-icon>
+                <mat-error *ngIf="form.get('username')?.invalid">
+                    {{getUsernameErrorMsg()}}
+                </mat-error>
+			</mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%;">
+				<mat-label>E-mail</mat-label>
+				<input matInput
+				type="text"
+				class="form-control" 
+                formControlName="email"/>
+                <mat-icon matSuffix>
+					alternate_email
+				</mat-icon>
+                <mat-error *ngIf="form.get('email')?.invalid">
+                    {{getEmailErrorMsg()}}
+                </mat-error>
+			</mat-form-field>
+			<mat-form-field *ngIf="!seePassword" appearance="fill" style="width: 100%;">
+				<mat-label>Password</mat-label>
+				<input matInput 
+					type="password"
+					class="form-control" 
+                    formControlName="password"/>
+					<mat-icon mat-icon-button matSuffix (click)="toggleSeePw()">
+						visibility_off
+					</mat-icon>
+                    <mat-error *ngIf="form.get('password')?.invalid">
+                        {{getPasswordErrorMsg()}}
+                    </mat-error>
+			</mat-form-field>
+            <mat-form-field *ngIf="seePassword" appearance="fill" style="width: 100%;">
+				<mat-label>Password</mat-label>
+				<input matInput 
+					type="text"
+					class="form-control" 
+                    formControlName="password"/>
+					<mat-icon mat-icon-button matSuffix (click)="toggleSeePw()">
+						visibility
+					</mat-icon>
+                <mat-error *ngIf="form.get('password')?.invalid">
+                    {{getPasswordErrorMsg()}}
+                </mat-error>
+			</mat-form-field>
+            <mat-form-field *ngIf="!seePassword" appearance="fill" style="width: 100%;">
+				<mat-label>Password again</mat-label>
+				<input matInput 
+					type="password"
+					class="form-control" 
+                    formControlName="confirmPassword"/>
+					<mat-icon mat-icon-button matSuffix (click)="toggleSeePw()">
+						visibility_off
+					</mat-icon>
+                <mat-error *ngIf="form.get('confirmPassword')?.invalid">
+                    Confirm password required
+                </mat-error>
+			</mat-form-field>
+			<mat-form-field *ngIf="seePassword" appearance="fill" style="width: 100%;">
+				<mat-label>Password again</mat-label>
+				<input matInput 
+					type="text"
+					class="form-control"  
+                    formControlName="confirmPassword"/>
+					<mat-icon mat-icon-button matSuffix (click)="toggleSeePw()">
+						visibility
+					</mat-icon>
+                <mat-error *ngIf="form.get('confirmPassword')?.invalid">
+                    Confirm password required
+                </mat-error>
+			</mat-form-field>
+            <mat-error *ngIf="errPasswordMsg">
+                {{errPasswordMsg}}
+            </mat-error>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" type="submit">Register</button>
+			<a mat-button color="primary" routerLink="/login">Login</a>
+		</mat-card-actions>
+	</form>
+</mat-card>

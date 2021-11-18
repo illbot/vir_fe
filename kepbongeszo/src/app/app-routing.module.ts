@@ -7,6 +7,7 @@ import { HttpClientModule} from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppService } from './app.service';
 import { MainComponent } from './main/main.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'app/home'},
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent},
   ]},
   { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
   {path: '**', redirectTo: 'app/home'}
 ];
 
