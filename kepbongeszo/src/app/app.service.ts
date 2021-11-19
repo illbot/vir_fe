@@ -7,6 +7,12 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
+export interface RegisterData {
+  username:string,
+  email:string,
+  password:string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,12 +26,8 @@ export class AppService {
     return this.http.post(environment.AUTH_SIGNIN, credentials, httpOptions);
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(environment.AUTH_SIGNUP, {
-      username,
-      email,
-      password
-    }, httpOptions);
+  register(data: RegisterData): Observable<any> {
+    return this.http.post(environment.AUTH_SIGNUP, data, httpOptions);
   }
 
 }

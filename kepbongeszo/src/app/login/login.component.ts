@@ -25,6 +25,7 @@ export class LoginComponent {
   }
 
   login() {
+    this.trimCredentials();
     this.app.login(this.credentials).subscribe(data => {
       this.token.saveToken(data.accessToken);
       this.token.saveUser(data);
@@ -33,6 +34,11 @@ export class LoginComponent {
     err =>{
       this.error = true;
     })
+  }
+
+  trimCredentials(){
+    this.credentials.username = this.credentials.username.trim();
+    this.credentials.password = this.credentials.password.trim();
   }
 
   toggleSeePw(){

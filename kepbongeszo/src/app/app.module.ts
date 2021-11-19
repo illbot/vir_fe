@@ -19,6 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { RegisterComponent } from './register/register.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,
     MatSidenavModule,
     MatListModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
 ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

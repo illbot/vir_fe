@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-interface RegisterData{
-  username:string,
-  email:string,
-  password:string
-}
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AppService, RegisterData } from '../app.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +16,13 @@ export class RegisterComponent implements OnInit {
   form!: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: AppService,
+    private snackbar: MatSnackBar,
+    private routing: Router
+    ) {
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -55,7 +58,7 @@ export class RegisterComponent implements OnInit {
     return this.form.controls
   }
 
-  register(){
+  async register(){
     this.submitted = true;
     this.errPasswordMsg = "";
     if(this.form.invalid){
@@ -70,15 +73,20 @@ export class RegisterComponent implements OnInit {
     }
 
     let registerData = this.getRegisterData();
-    console.log(registerData);
+
+    const result = await this.service.register(registerData).toPromise();
+    console.log(result);
+    this.snackbar.open(result.message, "Close").onAction().subscribe(()=>{
+      this.routing.navigateByUrl('/login')
+    });
   } 
 
   getRegisterData():RegisterData{
     let data: RegisterData;
     data = {
-      username: this.form.get('username')?.value,
-      email: this.form.get('email')?.value,
-      password: this.form.get('password')?.value
+      username: this.form.get('username')?.value.trim(),
+      email: this.form.get('email')?.value.trim(),
+      password: this.form.get('password')?.value.trim()
     }
     return data;
   }
