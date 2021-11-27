@@ -8,11 +8,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppService } from './app.service';
 import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './register/register.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AuthGuard } from './auth.guard';
+
+const roles:any = {
+  ADMIN: "ROLE_ADMIN"
+}
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'app/home'},
   { path: 'app', component: MainComponent, children:[
     { path: 'home', component: HomeComponent},
+    { path: 'admin', component: AdminPageComponent,
+      canActivate: [AuthGuard],
+      data: {
+        role: roles.ADMIN
+      }
+    }
   ]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},

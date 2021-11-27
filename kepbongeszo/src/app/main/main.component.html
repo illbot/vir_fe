@@ -36,9 +36,9 @@
   </button>
 </mat-toolbar>
 <mat-drawer-container class="sidebar">
-  <mat-drawer #drawer style="background-color: #3f51b5;" mode="side" opened>
-    <mat-nav-list>
-      <mat-list-item class="list-items">  
+  <mat-drawer #drawer style="background-color: #3f51b5;" mode="side" opened> 
+    <mat-nav-list *ngIf="isLoggedIn()">
+      <mat-list-item class="list-items">   
          <mat-icon>
            article
         </mat-icon>
@@ -50,11 +50,14 @@
          </mat-icon>
         Item 2
       </mat-list-item>
-      <mat-list-item class="list-items">
+      <mat-list-item  
+        *ngIf="user.roles.includes(ADMIN)"
+        class="list-items" 
+        routerLink="/app/admin">
         <mat-icon>
           article
         </mat-icon>
-        Item 3
+        Admin
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>

@@ -12,14 +12,17 @@ import { TokenService } from '../token.service';
 })
 export class MainComponent {
 
-  user;
+  user:any;
+  ADMIN:string = "ROLE_ADMIN";
 
   constructor(private app: AppService,
      private http: HttpClient,
       private router: Router,
-      private tokenService: TokenService)
+      private tokenService: TokenService,
+      )
   {
     this.user = tokenService.getUser();
+    console.log(this.user);
   }
 
   isLoggedIn(){

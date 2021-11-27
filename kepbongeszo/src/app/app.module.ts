@@ -20,6 +20,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { RegisterComponent } from './register/register.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     LoginComponent,
     HomeComponent,
     MainComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,
