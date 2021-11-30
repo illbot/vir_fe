@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AuthGuard } from './auth.guard';
+import { PictureBrowserComponent } from './picture-browser/picture-browser.component';
 
 const roles:any = {
   ADMIN: "ROLE_ADMIN"
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'app/home'},
   { path: 'app', component: MainComponent, children:[
     { path: 'home', component: HomeComponent},
+    { path: 'picture-browser', component: PictureBrowserComponent},
     { path: 'admin', component: AdminPageComponent,
       canActivate: [AuthGuard],
       data: {

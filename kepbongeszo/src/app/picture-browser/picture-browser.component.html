@@ -1,0 +1,92 @@
+<div class="kb-content">
+    <h1>
+        Képdöngésző 
+        <button mat-raised-button 
+            color='primary' 
+            class="right"
+            (click)="openUploadModal(uploadPicModal)">
+            <mat-icon>
+                add
+            </mat-icon>
+            Hozzáadás
+        </button>
+    </h1>
+    <mat-card>
+        <mat-form-field>
+            <mat-label>
+                Search by title
+            </mat-label>
+            <input matInput (keyup)="filterData($event)"/>
+            <mat-icon matSuffix>
+                search
+            </mat-icon>
+        </mat-form-field>
+        <div class="row" *ngIf="show">
+            <div *ngFor="let data of displayedData" class="col-2">
+                <mat-card >
+                    <mat-card-header>
+                    <mat-card-title>{{data.title}}</mat-card-title>
+                    <mat-card-subtitle>Uploader: {{data.uploader}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <img mat-card-xl-image src="{{data.picture}}" alt="Photo of a Shiba Inu">
+                    <mat-card-actions align="end">
+                        <button mat-icon-button
+                         (click)="zoom(data, pictureModal)">
+                            <mat-icon>
+                                zoom_in
+                            </mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+        <mat-spinner *ngIf="!show" style="left:50%; transform: translate(-50%, 0%);"></mat-spinner>
+    </mat-card>
+</div>
+
+<ng-template class="imageViewer" #pictureModal let-modal>
+    <mat-card class="wrapper">
+        <img class="img-zoom" src="{{selected.picture}}">
+        <br>
+        <button mat-raised-button color="warn" (click)="modal.close('Save click')">Close</button>
+    </mat-card>
+</ng-template>
+
+<ng-template #uploadPicModal let-modal >
+    <mat-card class="wrapper">
+        <ngx-dropzone (change)="onPicSelect($event)" style="width: 100%;">
+            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onPicRemove(f)">
+              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+        <br>
+        <img *ngIf="fileSafeUrl" class="image-preview" [src]="fileSafeUrl">
+        <br>
+        <mat-form-field style="width: 100%;">
+            <mat-label>Adj meg egy leírást!</mat-label>
+            <textarea matInput placeholder="Ez a macska gyönnyörű..."
+            [(ngModel)]="uploadDetails.description"
+            ></textarea>
+        </mat-form-field>
+        <br>
+        <mat-label>
+            Láthatóság:
+        </mat-label>
+        <br>
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button 
+            matInput 
+            value="1"
+            (change)="rbChange()"
+            [checked]="uploadDetails.user_visibility">
+                Sima felhasználó
+            </mat-radio-button>
+        </mat-radio-group>
+        <br>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary" (click)="uploadImage()">Feltöltés</button>
+            <button mat-raised-button color="warn" (click)="modal.close('Save click')">Mégse</button>
+        </mat-card-actions>
+    </mat-card>
+</ng-template>

@@ -21,6 +21,10 @@ import {MatListModule} from '@angular/material/list';
 import { RegisterComponent } from './register/register.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { PictureBrowserComponent } from './picture-browser/picture-browser.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     HomeComponent,
     MainComponent,
     RegisterComponent,
-    AdminPageComponent
+    AdminPageComponent,
+    PictureBrowserComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,10 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     MatSidenavModule,
     MatListModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    NgxDropzoneModule,
+    MatRadioModule,
 ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

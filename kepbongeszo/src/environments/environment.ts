@@ -9,8 +9,9 @@ export const environment = {
 
   USER: "/api/user",
   AUTH_SIGNIN: "/api/auth/signin",
-  AUTH_SIGNUP: "/api/auth/signup"
+  AUTH_SIGNUP: "/api/auth/signup",
 
+  PIC_UPLOAD: "/api/picture/upload",
 };
 
 /*
