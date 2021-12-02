@@ -12,6 +12,9 @@ export const environment = {
   AUTH_SIGNUP: "/api/auth/signup",
 
   PIC_UPLOAD: "/api/picture/upload",
+  PIC_UPLOAD_DATA: "/api/picture/uploadData",
+
+  GET_FILE: "/api/picture/files"
 };
 
 /*

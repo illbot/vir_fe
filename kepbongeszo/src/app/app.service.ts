@@ -19,7 +19,6 @@ export interface PictureData{
 }
 
 export interface FileData{
-  url: any,
   name: string,
   type: string
 }
@@ -41,35 +40,27 @@ export class AppService {
     return this.http.post(environment.AUTH_SIGNUP, data, httpOptions);
   }
 
-  uploadImage(uploadDetails:any, fileData:FileData){
+  uploadImg(img: File, fileName:string, fileExtension:string):any{
+    let formData = new FormData();
+    formData.append('file',img, fileName+'.'+fileExtension);
+
+    return this.http.post(environment.PIC_UPLOAD, formData);
+  }
+
+  uploadImageData(uploadDetails:any, fileData:FileData):any{
     let payload = {
       uploader: uploadDetails.uploader,
       visibility_list: uploadDetails.role,
       description: uploadDetails.description,
-      dataURL: fileData.url,
       type: fileData.type,
-      name: fileData.name
+      name: fileData.name,
+      displayName: uploadDetails.displayName
     };
-    return this.http.post(environment.PIC_UPLOAD, payload, httpOptions);
+
+    return this.http.post(environment.PIC_UPLOAD_DATA, payload, httpOptions);
   }
 
   getPictures(){
-    return [
-        {
-          picture: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
-          uploader:"user2",
-          title: "Cica1"
-        },
-        {
-          picture: "https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=840&q=80",
-          uploader:"userreg",
-          title: "Cica2"
-        },
-        {
-          picture: "https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1584&q=80",
-          uploader:"user1337",
-          title: "Cica3"
-        }
-      ];
+    return this.http.get(environment.GET_FILE);
   }
 }

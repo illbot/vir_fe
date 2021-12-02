@@ -6,7 +6,8 @@ import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenService } from '../token.service';
-
+import { v4 as uuid } from 'uuid';
+import { environment } from 'src/environments/environment';
 
 export interface FileHandle {
   file: File,
@@ -18,25 +19,33 @@ export interface FileHandle {
   templateUrl: './picture-browser.component.html',
   styleUrls: ['./picture-browser.component.scss']
 })
-export class PictureBrowserComponent implements OnInit, AfterViewChecked {
+export class PictureBrowserComponent implements OnInit, AfterViewInit {
 
   snackBHorizontal: MatSnackBarHorizontalPosition = 'end';
   snackBVertical: MatSnackBarVerticalPosition = 'top';
   dataSource: [] | undefined | any;
   displayedData: [] | undefined | any;
   show = false;
-  selected = {
-    picture: undefined,
-    title: undefined
-  }
+  selected: any = undefined;
   files: File[]=[];
   fileSafeUrl:any;
 
   uploadDetails = {
     description: "",
+    displayName: "",
     role: ['ROLE_ADMIN'],
     uploader: this.tokenService.getUser().id,
     user_visibility: false
+  }
+
+  defaultUploadDetail(){
+    this.uploadDetails = {
+      description: "",
+      displayName: "",
+      role: ['ROLE_ADMIN'],
+      uploader: this.tokenService.getUser().id,
+      user_visibility: false
+    }
   }
 
   constructor(
@@ -47,21 +56,23 @@ export class PictureBrowserComponent implements OnInit, AfterViewChecked {
     private tokenService: TokenService,
     ) { }
 
-  ngAfterViewChecked(): void {
-
+  ngAfterViewInit(): void {
+    this.getPictures();
   }
 
-  ngOnInit(): void {
-    // Api callnál majd át kell tenni AfterViewInitbe
-    this.dataSource = this.service.getPictures();
-    this.displayedData = [...this.dataSource];
-    console.log(this.displayedData);
-    this.show = true;
+  ngOnInit(): void {}
+
+  getPictures(){
+    this.service.getPictures().subscribe(data =>{
+      this.dataSource = data;
+      this.displayedData = [...this.dataSource];
+      console.log(this.displayedData);
+      this.show = true;
+    });
   }
 
   zoom(data:any, modal:any){
-    this.selected.picture = data.picture;
-    this.selected.title = data.title;
+    this.selected = data;
     this.modalService.open(modal);
   }
 
@@ -73,7 +84,7 @@ export class PictureBrowserComponent implements OnInit, AfterViewChecked {
       return;
     }
     this.displayedData = this.dataSource.filter((element:any)=>{
-      let title = element.title.trim().toLowerCase();
+      let title = element.displayName.trim().toLowerCase();
       return title.includes(filterValue) ? true : false;
     });
   }
@@ -102,15 +113,27 @@ export class PictureBrowserComponent implements OnInit, AfterViewChecked {
   }
 
   uploadImage(){
-    this.toBase64(this.files[0]).then(data=>{
-      let fileData: FileData= {
-        url: data,
-        name: this.files[0].name,
-        type: this.files[0].type
-      }
-      this.service.uploadImage(this.uploadDetails, fileData).subscribe(element => console.log(element));
-    });
+    const img_id = uuid()
+    let fileExtension:string | any= this.files[0].name.split('?')[0].split('.').pop();
+    let fileData: FileData= {
+      name: img_id+'.'+fileExtension,
+      type: this.files[0].type
+    }
 
+    this.service.uploadImg(this.files[0],img_id, fileExtension).subscribe( (data: { message: string | string[]; } | any) =>{
+      console.log(data);
+      this.service.uploadImageData(this.uploadDetails, fileData).subscribe((element: { [x: string]: string | string[]; }) => {
+        if(element["message"].includes("Sikeres!")){
+          this.defaultUploadDetail();
+          this.modalService.dismissAll();
+          this.snackBar.open("Sikeres feltöltés!", "close");
+          this.getPictures();
+        }
+      });
+    },
+    (err: any) => {
+      this.snackBar.open("Error: "+ err["error"]["message"])
+    });
   }
 
   rbChange(){
@@ -120,10 +143,10 @@ export class PictureBrowserComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  toBase64(file: File){
+  toByteArray(file: File){
     return new Promise((resolve,reject)=>{
         let reader = new FileReader();
-        reader.readAsDataURL(file);
+        reader.readAsArrayBuffer(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
     });
@@ -136,4 +159,17 @@ export class PictureBrowserComponent implements OnInit, AfterViewChecked {
         );
   }
 
+  convertDataURIToBinary(dataURI:any) {
+    var base64Index = dataURI.indexOf(';base64,') + ';base64,'.length;
+    var base64 = dataURI.substring(base64Index);
+    var raw = window.atob(base64);
+    var rawLength = raw.length;
+    var array = new Uint8Array(new ArrayBuffer(rawLength));
+  
+    for(let i = 0; i < rawLength; i++) {
+      array[i] = raw.charCodeAt(i);
+    }
+    return array;
+  }
+  
 }

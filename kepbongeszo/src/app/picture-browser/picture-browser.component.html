@@ -22,13 +22,19 @@
             </mat-icon>
         </mat-form-field>
         <div class="row" *ngIf="show">
-            <div *ngFor="let data of displayedData" class="col-2">
-                <mat-card >
+            <div *ngFor="let data of displayedData" class="col-3">
+                <mat-card style="margin: 10px;">
                     <mat-card-header>
-                    <mat-card-title>{{data.title}}</mat-card-title>
+                    <mat-card-title>{{data.displayName}}</mat-card-title>
                     <mat-card-subtitle>Uploader: {{data.uploader}}</mat-card-subtitle>
                     </mat-card-header>
-                    <img mat-card-xl-image src="{{data.picture}}" alt="Photo of a Shiba Inu">
+                    <img mat-card-image src="/api/picture/files/{{data.name}}" 
+                        (click)="zoom(data, pictureModal)">
+                    <mat-card-content>
+                        <p>
+                            {{data.description}}
+                        </p>
+                    </mat-card-content>
                     <mat-card-actions align="end">
                         <button mat-icon-button
                          (click)="zoom(data, pictureModal)">
@@ -46,9 +52,16 @@
 
 <ng-template class="imageViewer" #pictureModal let-modal>
     <mat-card class="wrapper">
-        <img class="img-zoom" src="{{selected.picture}}">
+        <img class="img-zoom" src="/api/picture/files/{{selected.name}}">
         <br>
-        <button mat-raised-button color="warn" (click)="modal.close('Save click')">Close</button>
+        <mat-card-content>
+            <p>
+                {{selected.description}}
+            </p>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="warn" (click)="modal.close('Save click')">Close</button>
+        </mat-card-actions>
     </mat-card>
 </ng-template>
 
@@ -63,6 +76,11 @@
         <br>
         <img *ngIf="fileSafeUrl" class="image-preview" [src]="fileSafeUrl">
         <br>
+        <mat-form-field style="width: 100%;">
+            <mat-label>Cím:</mat-label>
+            <input matInput
+            [(ngModel)]="uploadDetails.displayName"/>
+        </mat-form-field>
         <mat-form-field style="width: 100%;">
             <mat-label>Adj meg egy leírást!</mat-label>
             <textarea matInput placeholder="Ez a macska gyönnyörű..."

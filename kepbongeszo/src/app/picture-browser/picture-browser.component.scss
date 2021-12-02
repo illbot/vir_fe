@@ -3,9 +3,9 @@
     width: 80%;
     margin: 0;
     position: absolute;
-    top: 30%;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0%);
 }
 img{
     object-fit: cover;
@@ -32,6 +32,7 @@ img{
 .imageViewer{
     
     margin: auto;
+    transform: translate(-50%, 0%);
 }
 
 .wrapper {
