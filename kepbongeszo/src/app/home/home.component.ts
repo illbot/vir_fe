@@ -14,18 +14,5 @@ interface IGreeting {
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-  title = 'Demo';
-  greeting : any
-
-  constructor(private app: AppService, private http: HttpClient) {
-    http.get<any>(environment.API_PATH+"resource").subscribe(data => {
-      console.log(data);
-      this.greeting = data['text']
-    });
-  }
-
-  authenticated() { return this.app.authenticated; }
-
-
+  constructor() {}
 }

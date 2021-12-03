@@ -63,4 +63,20 @@ export class AppService {
   getPictures(){
     return this.http.get(environment.GET_FILE);
   }
+
+  getAllPictureData():any{
+    return this.http.get(environment.GET_ALL_PICTURE);
+  }
+
+  changePictureVisibility(id:number, visibility:boolean){
+    let body = {
+      userVisibility: visibility,
+      pictureId: id
+    }
+    return this.http.post(environment.CHANGE_VISIBILITY,body);
+  }
+
+  delete(id: any) {
+    return this.http.delete(environment.DELETE_PICTURE + id);
+  }
 }

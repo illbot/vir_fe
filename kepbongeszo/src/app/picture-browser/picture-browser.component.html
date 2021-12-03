@@ -1,6 +1,6 @@
 <div class="kb-content">
     <h1>
-        Képdöngésző 
+        Képböngésző 
         <button mat-raised-button 
             color='primary' 
             class="right"
@@ -36,6 +36,12 @@
                         </p>
                     </mat-card-content>
                     <mat-card-actions align="end">
+                        <button *ngIf="user.roles.includes(ADMIN)" mat-icon-button color="warn"
+                         (click)="deletePic(data)">
+                            <mat-icon>
+                                delete_outline
+                            </mat-icon>
+                        </button>
                         <button mat-icon-button
                          (click)="zoom(data, pictureModal)">
                             <mat-icon>
@@ -52,6 +58,8 @@
 
 <ng-template class="imageViewer" #pictureModal let-modal>
     <mat-card class="wrapper">
+        <mat-card-title>{{selected.displayName}}</mat-card-title>
+        <mat-card-subtitle>Uploader: {{selected.uploader}}</mat-card-subtitle>
         <img class="img-zoom" src="/api/picture/files/{{selected.name}}">
         <br>
         <mat-card-content>

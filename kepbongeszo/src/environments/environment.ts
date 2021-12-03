@@ -14,7 +14,10 @@ export const environment = {
   PIC_UPLOAD: "/api/picture/upload",
   PIC_UPLOAD_DATA: "/api/picture/uploadData",
 
-  GET_FILE: "/api/picture/files"
+  GET_FILE: "/api/picture/files",
+  GET_ALL_PICTURE: "/api/picture/getAll",
+  CHANGE_VISIBILITY: "/api/picture/changeVisibility",
+  DELETE_PICTURE: "/api/picture/delete/"
 };
 
 /*

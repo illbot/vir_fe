@@ -29,7 +29,7 @@ export class LoginComponent {
     this.app.login(this.credentials).subscribe(data => {
       this.token.saveToken(data.accessToken);
       this.token.saveUser(data);
-      this.router.navigateByUrl('/app/home')
+      this.router.navigateByUrl('/app/picture-browser')
     },
     err =>{
       this.error = true;

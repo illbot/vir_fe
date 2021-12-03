@@ -46,18 +46,12 @@
         </mat-icon>
         Képek
       </mat-list-item>
-      <mat-list-item class="list-items">
-         <mat-icon>
-           article
-         </mat-icon>
-        Item 2
-      </mat-list-item>
       <mat-list-item  
         *ngIf="user.roles.includes(ADMIN)"
         class="list-items" 
         routerLink="/app/admin">
         <mat-icon>
-          article
+          admin_panel_settings
         </mat-icon>
         Admin
       </mat-list-item>

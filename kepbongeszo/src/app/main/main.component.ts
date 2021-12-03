@@ -22,7 +22,6 @@ export class MainComponent {
       )
   {
     this.user = tokenService.getUser();
-    console.log(this.user);
   }
 
   isLoggedIn(){

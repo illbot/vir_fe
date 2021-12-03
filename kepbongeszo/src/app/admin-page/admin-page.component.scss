@@ -1,0 +1,43 @@
+
+.kb-content {
+    width: 80%;
+    margin: 0;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+img{
+    object-fit: cover;
+}
+
+.img-zoom {
+    max-width: 800px;
+    max-height: 700px;
+    object-fit: cover;
+    display: block;
+}
+
+.image-preview{
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.right{
+    float: right;
+}
+
+.imageViewer{
+    
+    margin: auto;
+    transform: translate(-50%, 0%);
+}
+
+.wrapper {
+    display: inline-block;
+    width: fit-content;
+    overflow:auto;
+}
+

@@ -30,6 +30,9 @@ export class PictureBrowserComponent implements OnInit, AfterViewInit {
   files: File[]=[];
   fileSafeUrl:any;
 
+  ADMIN:string = "ROLE_ADMIN";
+  user:any;
+
   uploadDetails = {
     description: "",
     displayName: "",
@@ -54,7 +57,9 @@ export class PictureBrowserComponent implements OnInit, AfterViewInit {
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
     private tokenService: TokenService,
-    ) { }
+    ) { 
+      this.user = tokenService.getUser();
+    }
 
   ngAfterViewInit(): void {
     this.getPictures();
@@ -172,4 +177,16 @@ export class PictureBrowserComponent implements OnInit, AfterViewInit {
     return array;
   }
   
+  deletePic(element:any){
+    this.service.delete(element.id).subscribe(
+      data => {
+        this.snackBar.open("Sikeres törlés!", "Bezár");
+        this.getPictures();
+      }, 
+      err =>{
+        this.snackBar.open("Sikertelen törlés!", "Bezár");
+        this.getPictures();
+      }
+    );
+  }
 }

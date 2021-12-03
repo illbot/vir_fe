@@ -25,6 +25,8 @@ import { PictureBrowserComponent } from './picture-browser/picture-browser.compo
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import {MatRadioModule} from '@angular/material/radio';
     MatProgressSpinnerModule,
     NgxDropzoneModule,
     MatRadioModule,
+    MatTableModule,
+    MatCheckboxModule
 ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
