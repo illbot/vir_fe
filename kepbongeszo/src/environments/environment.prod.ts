@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
+  
+  HOST: "http://vir.illesbotond.me",
 
   API_PATH: "/api/",
 

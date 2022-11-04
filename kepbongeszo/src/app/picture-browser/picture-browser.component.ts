@@ -1,13 +1,11 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit} from '@angular/core';
 import { AppService, FileData } from '../app.service';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
-import { timeout } from 'rxjs/operators';
-import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenService } from '../token.service';
 import { v4 as uuid } from 'uuid';
-import { environment } from 'src/environments/environment';
+
 
 export interface FileHandle {
   file: File,

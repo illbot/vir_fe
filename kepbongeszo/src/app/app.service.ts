@@ -33,18 +33,18 @@ export class AppService {
   constructor(private http: HttpClient) { }
 
   login(credentials:any):Observable<any> {
-    return this.http.post(environment.AUTH_SIGNIN, credentials, httpOptions);
+    return this.http.post(environment.HOST+environment.AUTH_SIGNIN, credentials, httpOptions);
   }
 
   register(data: RegisterData): Observable<any> {
-    return this.http.post(environment.AUTH_SIGNUP, data, httpOptions);
+    return this.http.post(environment.HOST+environment.AUTH_SIGNUP, data, httpOptions);
   }
 
   uploadImg(img: File, fileName:string, fileExtension:string):any{
     let formData = new FormData();
     formData.append('file',img, fileName+'.'+fileExtension);
 
-    return this.http.post(environment.PIC_UPLOAD, formData);
+    return this.http.post(environment.HOST+environment.PIC_UPLOAD, formData);
   }
 
   uploadImageData(uploadDetails:any, fileData:FileData):any{
@@ -57,15 +57,15 @@ export class AppService {
       displayName: uploadDetails.displayName
     };
 
-    return this.http.post(environment.PIC_UPLOAD_DATA, payload, httpOptions);
+    return this.http.post(environment.HOST+environment.PIC_UPLOAD_DATA, payload, httpOptions);
   }
 
   getPictures(){
-    return this.http.get(environment.GET_FILE);
+    return this.http.get(environment.HOST+environment.GET_FILE);
   }
 
   getAllPictureData():any{
-    return this.http.get(environment.GET_ALL_PICTURE);
+    return this.http.get(environment.HOST+environment.GET_ALL_PICTURE);
   }
 
   changePictureVisibility(id:number, visibility:boolean){
@@ -73,10 +73,10 @@ export class AppService {
       userVisibility: visibility,
       pictureId: id
     }
-    return this.http.post(environment.CHANGE_VISIBILITY,body);
+    return this.http.post(environment.HOST+environment.CHANGE_VISIBILITY,body);
   }
 
   delete(id: any) {
-    return this.http.delete(environment.DELETE_PICTURE + id);
+    return this.http.delete(environment.HOST+environment.DELETE_PICTURE + id);
   }
 }

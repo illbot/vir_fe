@@ -1,9 +1,10 @@
-#stage 1
-FROM node:16 as node
-WORKDIR /app
+FROM node:16-slim AS node 
+WORKDIR /usr/app
 COPY . .
-RUN npm install
-RUN npm run build --prod
-#stage 2
+RUN npm install 
+RUN npm run build
+
 FROM nginx:alpine
-COPY --from=node /app/dist/kepbongeszo /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d
+COPY --from=node /usr/app/dist/kepbongeszo /usr/share/nginx/html
+
